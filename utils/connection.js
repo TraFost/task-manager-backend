@@ -1,14 +1,12 @@
 import mysql from "mysql2/promise";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 export const connection = await mysql.createConnection(
-	"mysql://root:root@localhost:8889/mock_gaji"
+	`${process.env.DB_HOST}/${process.env.DB_NAME}`
 );
 
-try {
-	const [results, fields] = await connection.query("SELECT * FROM `gajian`");
+const [result, fields] = await connection.query("SELECT * FROM `user_task`");
 
-	console.log(results); // results contains rows returned by server
-	console.log(fields); // fields contains extra meta data about results, if available
-} catch (err) {
-	console.log(err, "<<<<WAWA<W");
-}
+console.log(result, fields);
