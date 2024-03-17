@@ -52,3 +52,26 @@ export const deleteUser = async (req, res) => {
 		});
 	}
 };
+
+export const updateUser = async (req, res) => {
+	const {
+		params: { id },
+		body: { username, password },
+	} = req;
+
+	try {
+		await connection.query(
+			`UPDATE users SET username = '${username}', password = '${password}' WHERE id = ${id}`
+		);
+
+		return res.send({
+			status: 200,
+			message: "Successfully update user",
+		});
+	} catch (err) {
+		return res.send({
+			status: 500,
+			message: "Internal server error",
+		});
+	}
+};
