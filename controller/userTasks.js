@@ -21,11 +21,29 @@ export const createNewUser = async (req, res) => {
 
 		return res.send({
 			status: 200,
-			message: "Successfully created new user",
+			message: "Successfully create new user",
 			data: {
 				id: result.insertId,
 				username,
 			},
+		});
+	} catch (err) {
+		return res.send({
+			status: 500,
+			message: "Internal server error",
+		});
+	}
+};
+
+export const deleteUser = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		await connection.query(`DELETE FROM users WHERE id = ${id}`);
+
+		return res.send({
+			status: 200,
+			message: "Successfully delete user",
 		});
 	} catch (err) {
 		return res.send({
