@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/", userRoutes);
+
 app.route("/").get(() => {
 	res.send("HALLO!");
 });
